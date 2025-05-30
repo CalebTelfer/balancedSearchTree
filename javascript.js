@@ -74,8 +74,41 @@ class Tree {
             return this.deleteItem(value, node.right, node);
         } else {
 
-            
+            //case no child
+            if(!node.left && !node.right) {
+                if (node == parent.left) {
+                    parent.left = null;
+                } else {
+                    parent.right = null;
+                }
+            } else if ((!node.left && node.right) || (!node.right && node.left)) { //case one child
+                if (parent.left == node) {
+                    if(node.left) {
+                        parent.left = node.left;
+                    } else {
+                        parent.left = node.right;
+                    }
+                } else {
+                    if(node.left) {
+                        parent.right = node.left;
+                    } else {
+                        parent.right = node.right;
+                    }
+                }
 
+            } else { // case two children.
+                let successor = node.right;
+                let successorParent = node;
+    
+                while (successor.left) {
+                    successorParent = successor;
+                    successor = successor.left;
+                }
+
+                node.data = successor.data;
+                this.deleteItem(successor.data, successor, successorParent);
+
+            }
             return true;
         }
     }
