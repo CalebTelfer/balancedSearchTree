@@ -65,55 +65,18 @@ class Tree {
     }
 
 
-    deleteItem(value) { // lets assume value here is a number not a node. project spec didnt say.
-        let currentRoot = this.root;
-        let prevRoot = null;
+    deleteItem(value, node = this.root, parent = null) { // lets assume value here is a number not a node. project spec didnt say.
+        if (!node) return false;
 
-        while (currentRoot) {
-            if(currentRoot.data == value) {
+        if (value < node.data) {
+            return this.deleteItem(value, node.left, node);
+        } else if (value > node.data) {
+            return this.deleteItem(value, node.right, node);
+        } else {
 
-                //case with node with no children.
-                if (!currentRoot.left && !currentRoot.right) {
-                    if (!prevRoot) {
-                        this.root = null;
-                        return;
-                    } else if (prevRoot.left == currentRoot) {
-                        prevRoot.left = null;
-                    } else {
-                        prevRoot.right = null;
-                    }
+            
 
-                    return true;
-
-
-                    //case of one child
-                } else if ((currentRoot.left && !currentRoot.right) || (currentRoot.right && !currentRoot.left)) {
-                    const child = // pick up here tomorrow. too tired to think about all the children parent reassigning rn.
-
-                }
-            }
-
-            if(value < currentRoot.data) {  //if our value is less than root we are comparing to
-                if (currentRoot.left) {
-                   prevRoot = currentRoot;
-                   currentRoot = currentRoot.left;
-                } else {
-                    return false; // value not found
-                }
-           }
-
-
-
-           if(value > currentRoot.data) {  //if our value is more than root we are comparing to
-               if (currentRoot.right) {
-                  prevRoot = currentRoot;
-                  currentRoot = currentRoot.right;
-               } else {
-                return false; // value not found
-               }
-          }
-       
-
+            return true;
         }
     }
 }
