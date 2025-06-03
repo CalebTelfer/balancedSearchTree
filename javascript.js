@@ -112,4 +112,16 @@ class Tree {
             return true;
         }
     }
+
+    find(value, node = this.root) {
+        if (!node) {return null};
+
+        if (value < node.data) {
+            return this.find(value, node.left);
+        } else if (value > node.data) {
+            return this.find(value, node.right);
+        } else {
+            return node;
+        }
+    }
 }
