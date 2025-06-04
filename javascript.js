@@ -169,5 +169,18 @@ class Tree {
         this.postOrder(callback, node.right);
         callback(node);
     }
+
+
+    depth(value, node = this.root, depth = 0) {
+        if (!node) {return null;}
+
+        if (value < node.data) {
+            return this.depth(value, node.left, depth + 1);
+        } else if (value > node.data) {
+            return this.depth(value, node.right, depth + 1);
+        } else {
+            return depth; // node found. return depth counter
+        }
+    }
     
 }
