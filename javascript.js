@@ -148,15 +148,26 @@ class Tree {
     inOrder(callback, node = this.root) {
         if (!node) {return null;}
 
+        this.inOrder(callback, node.left);
+        callback(node);
+        this.inOrder(callback, node.right);
 
     }
 
     preOrder(callback, node = this.root) {
         if (!node) {return null;}
 
+        callback(node);
         this.preOrder(callback, node.left);
         this.preOrder(callback, node.right);
+    }
 
+    postOrder(callback, node = this.root) {
+        if (!node) {return null;}
+
+        this.postOrder(callback, node.left);
+        this.postOrder(callback, node.right);
         callback(node);
     }
+    
 }
