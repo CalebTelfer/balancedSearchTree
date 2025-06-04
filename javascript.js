@@ -143,4 +143,20 @@ class Tree {
             }
         }
     }
+
+
+    inOrder(callback, node = this.root) {
+        if (!node) {return null;}
+
+
+    }
+
+    preOrder(callback, node = this.root) {
+        if (!node) {return null;}
+
+        this.preOrder(callback, node.left);
+        this.preOrder(callback, node.right);
+
+        callback(node);
+    }
 }
