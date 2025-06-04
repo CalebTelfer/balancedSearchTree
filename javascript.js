@@ -124,4 +124,23 @@ class Tree {
             return node;
         }
     }
+
+    levelOrder(callback, node = this.root) {
+        if (!node) {return null;}
+
+        let queue = [node];
+
+        while(queue.length > 0) {
+
+            let current = queue.shift();
+            callback(current);
+            if(current.left) {
+                queue.push(current.left);
+            }
+
+            if(current.right) {
+                queue.push(current.right)
+            }
+        }
+    }
 }
