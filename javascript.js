@@ -7,14 +7,14 @@ class TreeNode {
 }
 
 class Tree {
-    constructor(sortedArray) {
-        this.root = buildTree(sortedArray);
+    constructor() {
+        this.root = null;
     }
 
-    buildTree(array, start, end) {
+    buildTree(array, start = 0, end) {
         if(start > end) {return null;};
 
-        let mid = (start+end)/2;
+        let mid = Math.floor((start+end)/2);
 
         const root = new TreeNode();
         root.data = array[mid];
@@ -218,15 +218,59 @@ class Tree {
 
     rebalance() {
         let sortedArray = this.sortedArrayFromTree();
-
-        this.root = this.buildTree(sortedArray);
+        this.root = this.buildTree(sortedArray, 0, sortedArray.length-1);
     }
 
     sortedArrayFromTree(node = this.root, arr = []) {
         if (!node) return arr;
         this.sortedArrayFromTree(node.left, arr);
-        arr.push(node.value);
+        arr.push(node.data);
         this.sortedArrayFromTree(node.right, arr);
         return arr;
     }
 }
+
+const prettyPrint = (node, prefix = '', isLeft = true) => {
+    if (node === null) {
+      return;
+    }
+    if (node.right !== null) {
+      prettyPrint(node.right, `${prefix}${isLeft ? '│   ' : '    '}`, false);
+    }
+    console.log(`${prefix}${isLeft ? '└── ' : '┌── '}${node.data}`);
+    if (node.left !== null) {
+      prettyPrint(node.left, `${prefix}${isLeft ? '    ' : '│   '}`, true);
+    }
+  };
+
+
+// driver script
+
+
+function tieTogether() {
+    let randomArray = [1, 4, 7, 8, 9, 23, 24, 53, 76, 80, 82, 91, 93, 98];
+    let myTree = new Tree();
+
+    myTree.root = myTree.buildTree(randomArray, 0, randomArray.length-1);
+    prettyPrint(myTree.root);
+
+    console.log(myTree.isBalanced());
+
+    console.log ("level");
+    myTree.levelOrder( node => console.log(node.data));
+
+    console.log ("pre");
+    myTree.preOrder( node => console.log(node.data));
+
+    console.log ("post");
+    myTree.postOrder( node => console.log(node.data));
+
+    console.log ("inorder");
+    myTree.inOrder( node => console.log(node.data));
+
+    myTree.rebalance();
+
+
+}
+
+tieTogether();
