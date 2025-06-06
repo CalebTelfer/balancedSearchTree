@@ -201,4 +201,18 @@ class Tree {
         return 1 + Math.max(leftHeight, rightHeight);
     }
     
+
+    isBalanced(node = this.root) {
+        // check if left height and right height is the same for every node
+        if (!node) {return true};
+
+        const leftHeight = this.heightHelper(node.left);
+        const rightHeight = this.heightHelper(node.right);
+
+        if (leftHeight - rightHeight <= 1 || rightHeight - leftHeight <= 1) {
+            return this.isBalanced(node.left) && this.isBalanced(node.right);
+        } else {
+            return false;
+        }
+    }
 }
