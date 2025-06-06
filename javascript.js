@@ -215,4 +215,18 @@ class Tree {
             return false;
         }
     }
+
+    rebalance() {
+        let sortedArray = this.sortedArrayFromTree();
+
+        this.root = this.buildTree(sortedArray);
+    }
+
+    sortedArrayFromTree(node = this.root, arr = []) {
+        if (!node) return arr;
+        this.sortedArrayFromTree(node.left, arr);
+        arr.push(node.value);
+        this.sortedArrayFromTree(node.right, arr);
+        return arr;
+    }
 }
